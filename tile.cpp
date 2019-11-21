@@ -63,15 +63,14 @@ void Tile::setPiece(bool white, char q) {
             setText("");
         }
     }
-    emit leftClicked();
 }
 
 void Tile::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-        std::cout << ((p.length()==0)?" ":p.toStdString()) << " " << x << " "
-                  << y << std::endl;
         emit leftClicked();
-        QLabel::enterEvent(event);
+    } else if (event->button() == Qt::RightButton) {
+        emit rightClicked();
     }
+    QLabel::enterEvent(event);
 }

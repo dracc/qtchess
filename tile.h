@@ -14,6 +14,7 @@ private:
     int y = 0;
 signals:
     void leftClicked();
+    void rightClicked();
 public:
     Tile(QWidget* parent = nullptr, int x=0, int y=0, bool white = false,
          Qt::WindowFlags f = Qt::WindowFlags());
