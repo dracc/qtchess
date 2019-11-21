@@ -12,6 +12,7 @@ class Board : public QWidget
     Q_OBJECT
 private:
     QVector<QVector<Tile*>> board;
+    QPair<int, int> *selectedPiece;
 public:
     Board(QLayout* l, QWidget* parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 public slots:

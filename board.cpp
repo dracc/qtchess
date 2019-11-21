@@ -4,12 +4,26 @@
 #include <iostream>
 
 void Board::selectPiece() {
-    auto p = static_cast<Tile*>(sender())->getPos();
-    std::cout << "CLICK " << static_cast<char>(p.second + 65) << (p.first - 8) * -1 << std::endl;
+    if (selectedPiece != nullptr) {
+        if (*selectedPiece == static_cast<Tile*>(sender())->getPos()) {
+            std::cout << std::endl;
+            free(selectedPiece);
+            selectedPiece = nullptr;
+            return;
+        } else {
+            selectedPiece = new QPair<int,int>{static_cast<Tile*>(sender())->getPos()};
+            std::cout << " " << static_cast<char>(selectedPiece->second + 65) << (selectedPiece->first - 8) * -1 << std::endl;
+            free(selectedPiece);
+            selectedPiece = nullptr;
+            return;
+        }
+    }
+    selectedPiece = new QPair<int,int>{static_cast<Tile*>(sender())->getPos()};
+    std::cout << static_cast<char>(selectedPiece->second + 65) << (selectedPiece->first - 8) * -1 << std::flush;
 }
 
 Board::Board(QLayout* l, QWidget *parent, Qt::WindowFlags f)
-    : QWidget(parent, f)
+    : QWidget(parent, f), selectedPiece(nullptr)
 {
     board = QVector<QVector<Tile*>>(8);
     bool white = true;
