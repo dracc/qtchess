@@ -45,8 +45,13 @@ void Board::validMoves(QString const& p, QPair<int, int> pos)
     bool w = board[y][x]->whitePiece();
     const char q = p.at(1).toLatin1();
     int yvector = w?-1:1;
+
     switch (q) {
     case 'p':
+        if (y + yvector > 7
+                || y + yvector < 0) {
+            break;
+        }
         if (board[y+yvector][x]->getPiece().length() < 2) {
             moves.push_back({y+yvector,x});
             if(!w){
